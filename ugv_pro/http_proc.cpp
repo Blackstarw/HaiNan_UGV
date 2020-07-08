@@ -1,6 +1,9 @@
 #include "http_proc.h"
 #include "qx_proc.h"
 #include <QDebug>
+#include <sys/time.h>
+
+timeval curr_time;
 
 HTTP_Proc::HTTP_Proc(QObject *parent) : QObject(parent)
 {
@@ -242,7 +245,7 @@ void HTTP_Proc::http_uploadRealtimeInfo(Gps_Info_t gps_info)
     requset.setUrl(QUrl(agv_sys_config.Upload_Real_Info_Url));
     requset.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
     QJsonObject SysInfo_json;
-    SysInfo_json.insert("deviceId", AGV_DEVICE_ID);
+    SysInfo_json.insert("deviceId", QString::number(agv_sys_config.Device_ID));
     SysInfo_json.insert("latitude", gps_positionConvert(gps_info.latitude));
     SysInfo_json.insert("longitude", gps_positionConvert(gps_info.longitude));
     SysInfo_json.insert("altitude", QString::number(gps_info.height, 'f', 6));
@@ -265,10 +268,12 @@ void HTTP_Proc::http_uploadRealtimeInfo(Gps_Info_t gps_info)
     SysInfo_json.insert("camera6Fault", QString::number(0));
     SysInfo_json.insert("camera7Fault", QString::number(0));
     SysInfo_json.insert("camera8Fault", QString::number(0));
-    SysInfo_json.insert("reportTime", 15880630);
+    gettimeofday(&curr_time, nullptr);
+    SysInfo_json.insert("reportTime", QString::number(curr_time.tv_sec * 1000));
     SysInfo_json.insert("status", 1);
-    SysInfo_json.insert("createAt", 15880600);
-    SysInfo_json.insert("updateAt", 1588000);
+    SysInfo_json.insert("createAt", QString::number(curr_time.tv_sec * 1000));
+    SysInfo_json.insert("updateAt", QString::number(curr_time.tv_sec * 1000));
+    qDebug() << "currtime" << QString::number(curr_time.tv_sec);
     QJsonArray jsonArray;
     jsonArray.append(SysInfo_json);
     QJsonDocument doc;
@@ -289,6 +294,7 @@ void HTTP_Proc::http_uploadSysInfo(System_Config_t sys_info)
     QJsonObject SysInfo_json;
     SysInfo_json.insert("deviceId", QString::number(sys_info.Device_ID));
     SysInfo_json.insert("firmwareVersion", QString("%1.%2.%3").arg(sys_info.Firmware_Version[0]).arg(sys_info.Firmware_Version[1]).arg(sys_info.Firmware_Version[2]));
+
     SysInfo_json.insert("camera1Type", QString::number(sys_info.Camera_Tpye[0]));
     SysInfo_json.insert("camera2Type", QString::number(sys_info.Camera_Tpye[1]));
     SysInfo_json.insert("camera3Type", QString::number(sys_info.Camera_Tpye[2]));
@@ -297,10 +303,12 @@ void HTTP_Proc::http_uploadSysInfo(System_Config_t sys_info)
     SysInfo_json.insert("camera6Type", QString::number(sys_info.Camera_Tpye[5]));
     SysInfo_json.insert("camera7Type", QString::number(sys_info.Camera_Tpye[6]));
     SysInfo_json.insert("camera8Type", QString::number(sys_info.Camera_Tpye[7]));
-    SysInfo_json.insert("reportTime", 15880630);
+
+    gettimeofday(&curr_time, nullptr);
+    SysInfo_json.insert("reportTime", QString::number(curr_time.tv_sec * 1000));
     SysInfo_json.insert("status", 1);
-    SysInfo_json.insert("createAt", 15880600);
-    SysInfo_json.insert("updateAt", 1588000);
+    SysInfo_json.insert("createAt", QString::number(curr_time.tv_sec * 1000));
+    SysInfo_json.insert("updateAt", QString::number(curr_time.tv_sec * 1000));
     QJsonArray jsonArray;
     jsonArray.append(SysInfo_json);
     QJsonDocument doc;

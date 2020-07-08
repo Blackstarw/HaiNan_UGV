@@ -10,9 +10,9 @@
 
 #define MAJOR_VERSION     (1)
 #define MINOR_VERSION     (0)
-#define INTERNAL_VERSION  (4)
+#define INTERNAL_VERSION  (5)
 
-#define AGV_DEVICE_ID (11111111)
+//#define AGV_DEVICE_ID (11111111)
 
 #define STM_DATA_SUMMARY_ID  (0x11)
 #define STM_DATA_TX_ID  (0x12)

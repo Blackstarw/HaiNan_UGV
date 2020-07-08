@@ -41,7 +41,6 @@ AGV_Ctr::AGV_Ctr(QObject *parent) : QObject(parent)
                                 Camera_failed;
     //sys_fault.camera_fault[2] = Camera_comm_fault |
     //                            Camera_failed;
-
 }
 void AGV_Ctr::agv_sysInit()
 {
@@ -250,6 +249,7 @@ void AGV_Ctr::upload_RealtimeInfo(Gps_Info_t info)
         Log.open(QIODevice::WriteOnly | QIODevice::Append);
         Log.write(tempLogData);
         Log.close();
+        http_obj_upload_info->http_uploadSysInfo(agv_sys_config);
     }
     http_obj_upload_info->http_uploadRealtimeInfo(info);
 }
@@ -290,7 +290,7 @@ void AGV_Ctr::gps_parseMsg(char* str, uint32_t str_len)
     sys_fault.gps_fault &= (~GPS_Comm_Fault);
     if(str[5] != 'C')   //非GPRMC
     {
-        qDebug() << "not GPRMC";
+        qDebug() << "Error gps message!";
         sys_fault.gps_fault |= GPS_Msg_Fault;
         return;
     }else
@@ -300,7 +300,7 @@ void AGV_Ctr::gps_parseMsg(char* str, uint32_t str_len)
 
     if(str[17] != 'A')  //无效数据
     {
-        qDebug() << "invalide gps";
+        qDebug() << "Invalid gps!";
         agv_device_status.GPS_OK = false;
         gps_info.gps_positioning_status = (uint8_t)Gps_Invalid;
         return;

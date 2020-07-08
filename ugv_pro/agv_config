@@ -1,0 +1,20 @@
+{
+    "Device_ID": 100006,
+
+    "Camera_Tpye_1": 1,
+    "Camera_Tpye_2": 3,
+    "Camera_Tpye_3": 2,
+    "Camera_Tpye_4": 0,
+    "Camera_Tpye_5": 0,
+    "Camera_Tpye_6": 0,
+    "Camera_Tpye_7": 0,
+    "Camera_Tpye_8": 0,
+
+    "Login_Usr_Name": "13000000001",
+    "Login_PassWord": "cBabYzzzK/YcCd9CDzQpSKaa+pp4GDba1VOBevVazofQR9SMMgzOqOhRvpZONd+wDnu7szudvIfEWoJw62DHtkyecC3jkReOAX7sOW6m4ucgZ0DRzyybqR6NMdk4M2Q2IqAUpOUB1qXsJsU3eB+4dhEnkN3VHGO1kx+GMXQa5t4=",
+    "Login_Url": "http://www.sit.eavchina.com/ms/auth/login",
+    "Get_Qx_Url": "http://www.sit.eavchina.com/rtk/gs/yun/getQXWZAccount",
+    "Upload_Policy_Url": "http://www.sit.eavchina.com/ms/common/v1/requestUploadFile",
+    "Upload_Real_Info_Url": "http://www.sit.eavchina.com/cs/gs/v3/open/addUgvRealInfo",
+    "Upload_Sys_Info_Url": "http://www.sit.eavchina.com/cs/gs/v3/open/addUgvSysInfo"
+}

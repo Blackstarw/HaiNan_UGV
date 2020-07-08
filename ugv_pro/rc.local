@@ -1,0 +1,28 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+rk_wifi_init /dev/ttyS0
+
+# Generate the SSH keys if non-existent
+ssh-keygen -A
+
+sudo ifconfig eth0 192.168.100.100 netmask 255.255.255.0
+
+sudo ip link set can0 down
+sudo ip link set can0 type can bitrate 1000000
+sudo ip link set can0 up
+echo "prepare start agv program sleep 50s"
+sleep 50
+echo "start agv program"
+#sudo /home/linaro/agvStart.sh start
+exit 
+
